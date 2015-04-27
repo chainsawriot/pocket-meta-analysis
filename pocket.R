@@ -38,6 +38,9 @@ lowrange <- plx$fit - qt(0.975, plx$df)*plx$se
 polygon(c(xseq, rev(xseq)), c(highrange, rev(lowrange)), border = NA, col = rgb(0,0,1,0.1))
 dev.off()
 
+smoothed <- data.frame(date=seq(from = min(loessdat$x), to = max(loessdat$x), by = 1), loessfit = plx$fit, loess.min = plx$fit + qt(0.975, plx$df)*plx$se, loess.max = plx$fit - qt(0.975, plx$df)*plx$se)
+
+write.csv(smoothed, "smoothed.csv", row.names = FALSE)
 
 #require(ggplot2)
 #plotdata <- data.frame(yi=yi, vi=vi, size = size, date = as.Date(pocket[,6], format="%m/%d/%Y"), sponsor = as.factor(pocket[,8]))
